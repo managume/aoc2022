@@ -123,10 +123,12 @@ $example = file('example.txt');
 $input = file('input.txt');
 
 $puzzle = new Puzzle();
+
 $firstExample = $puzzle->totalScore($example);
 $firstResult = $puzzle->totalScore($input);
 echo('Ejemplo 1: ' . $firstExample . PHP_EOL);
 echo('Resultado 1: ' . $firstResult . PHP_EOL);
+
 $secondExample = $puzzle->totalHackedScore($example);
 $secondResult = $puzzle->totalHackedScore($input);
 echo('Ejemplo 2: ' . $secondExample . PHP_EOL);
