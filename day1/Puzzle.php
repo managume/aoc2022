@@ -1,7 +1,13 @@
 <?php
 
-class PuzzleOne
+namespace Day1;
+class Puzzle
 {
+    public function __invoke($input)
+    {
+        echo ("El primer resultado es: " . self::maxCaloriesPerElf($input) . PHP_EOL);
+        echo ("El segundo resultado es: " . self::topThreeMaxCaloriesPerElf($input) . PHP_EOL);
+    }
     public function maxCaloriesPerElf($input)
     {
         return max(self::calculateCaloriesPerElf($input));
@@ -29,7 +35,3 @@ class PuzzleOne
         return $elvesCalories;
     }
 }
-$input = file('./input.txt');
-$puzzle = new PuzzleOne();
-echo ("El mayor número de calorías es: " . $puzzle->maxCaloriesPerElf($input) . PHP_EOL);
-echo ("El total de calorías resultante de sumar las tres mayores cantidades es: " . $puzzle->topThreeMaxCaloriesPerElf($input) . PHP_EOL);
