@@ -1,5 +1,7 @@
 <?php
 
+namespace Day2;
+
 class Puzzle
 {
     const STONE = 1;
@@ -10,12 +12,18 @@ class Puzzle
     const DRAW = 3;
     const WON = 6;
 
+    public function __invoke($input)
+    {
+        echo ("El primer resultado es: " . self::totalScore($input) . PHP_EOL);
+        echo ("El segundo resultado es: " . self::totalHackedScore($input) . PHP_EOL);
+    }
+
     public function totalScore($input)
     {
         $totalScore = 0;
         foreach ($input as $inputLine) {
-            $round = explode(' ',trim($inputLine));
-            $totalScore += self::resolveRound($round[0],$round[1]);
+            $round = explode(' ', trim($inputLine));
+            $totalScore += self::resolveRound($round[0], $round[1]);
         }
         return $totalScore;
     }
@@ -23,15 +31,16 @@ class Puzzle
     {
         $totalHackedScore = 0;
         foreach ($input as $inputLine) {
-            $round = explode(' ',trim($inputLine));
-            $totalHackedScore += self::hackRound($round[0],$round[1]);
+            $round = explode(' ', trim($inputLine));
+            $totalHackedScore += self::hackRound($round[0], $round[1]);
         }
         return $totalHackedScore;
     }
 
-    private function resolveRound($a, $b){
+    private function resolveRound($a, $b)
+    {
         $result = 0;
-        if($a == 'A'){ // STONE
+        if ($a == 'A') { // STONE
             switch ($b) {
                 case 'X': // STONE
                     $result = self::STONE + self::DRAW;
@@ -44,7 +53,7 @@ class Puzzle
                     break;
             }
         }
-        if($a == 'B'){ // PAPER
+        if ($a == 'B') { // PAPER
             switch ($b) {
                 case 'X': // STONE
                     $result = self::STONE + self::LOST;
@@ -57,7 +66,7 @@ class Puzzle
                     break;
             }
         }
-        if($a == 'C'){ // SCISSORS
+        if ($a == 'C') { // SCISSORS
             switch ($b) {
                 case 'X': // STONE
                     $result = self::STONE + self::WON;
@@ -73,9 +82,10 @@ class Puzzle
         return $result;
     }
 
-    private function hackRound($a, $b){
+    private function hackRound($a, $b)
+    {
         $result = 0;
-        if($a == 'A'){ // STONE
+        if ($a == 'A') { // STONE
             switch ($b) {
                 case 'X': // LOST
                     $result = self::LOST + self::SCISSORS;
@@ -88,7 +98,7 @@ class Puzzle
                     break;
             }
         }
-        if($a == 'B'){ // PAPER
+        if ($a == 'B') { // PAPER
             switch ($b) {
                 case 'X': // LOST
                     $result = self::LOST + self::STONE;
@@ -101,7 +111,7 @@ class Puzzle
                     break;
             }
         }
-        if($a == 'C'){ // SCISSORS
+        if ($a == 'C') { // SCISSORS
             switch ($b) {
                 case 'X': // LOST
                     $result = self::LOST + self::PAPER;
@@ -118,18 +128,3 @@ class Puzzle
     }
 
 }
-
-$example = file('example.txt');
-$input = file('input.txt');
-
-$puzzle = new Puzzle();
-
-$firstExample = $puzzle->totalScore($example);
-$firstResult = $puzzle->totalScore($input);
-echo('Ejemplo 1: ' . $firstExample . PHP_EOL);
-echo('Resultado 1: ' . $firstResult . PHP_EOL);
-
-$secondExample = $puzzle->totalHackedScore($example);
-$secondResult = $puzzle->totalHackedScore($input);
-echo('Ejemplo 2: ' . $secondExample . PHP_EOL);
-echo('Resultado 2: ' . $secondResult . PHP_EOL);
